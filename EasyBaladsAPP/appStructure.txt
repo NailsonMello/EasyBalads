@@ -1,0 +1,17 @@
+● src
++---● app
+|   +--● easybalads-details
+|   |  |--easybalads-details.component.ts|.html|.css
+|   |  +--● easybalads-detail
+|   |  |  |--easybalads-detail.component.ts|.html|.css
+|   |  |
+|   |  +--● easybalads-detail-list
+|   |  |  |--easybalads-detail-list.component.ts|.html|.css
+|   |  |
+|   |  +--● shared
+|   |     |--easybalads-detail.service.ts
+|   |     |--easybalads-detail.model.ts
+|   |
+|   |--app.module.ts
+|
+|--index.html (cdn path for bootstrap & fa icons)

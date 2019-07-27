@@ -1,0 +1,179 @@
+<div>
+    <button class="btn btn-outline-primary pull-right" (click)="openModal(template)">
+      <i class="fa fa-plus-circle"></i>&nbsp;
+      Novo Evento
+    </button>
+  </div>
+
+  <ng-template #template>
+      <div class="modal-body text-center">
+       
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Cadastro evento</h4>
+              <button type="button" class="close" (click)="modalRefer.hide()" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+              </button>
+      </div> 
+      <div class="modal-body">
+      <form method="post" #formCep="ngForm" autocomplete="off" (ngSubmit)="onSubmitCep(formCep)">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+              <label [class.green-icon]="cepSearch.valid" [class.red-icon]="cepSearch.invalid && cepSearch.touched">Buscar endereço</label>
+              <input type="text" name="cepSearch" maxlength="8" #cepSearch="ngModel" [(ngModel)]="evento.cep"
+              class="form-control" placeholder="Digite o cep que deseja pesquisar" required>
+            </div>
+          </div>
+         
+        <button type="button" class="btn btn-success" type="submit" [disabled]="formCep.invalid" (click)="confirm(template1)" >Buscar</button>
+        </form>
+        </div>
+      </div>  
+    </ng-template>
+<ng-template #template1> 
+  <!-- Modal -->
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Evento</h5>
+      <button type="button" class="close" (click)="modalRefer.hide()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                    
+                       <label>Nome</label>
+              <input type="text" formControlName="Nome" id="Nome"
+              class="form-control" placeholder="Insira o nome do evento" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Descrição</label>
+              <input type="text" formControlName="Descricao" id="Descricao"
+              class="form-control" placeholder="Informe como será o evento" required>
+            </div>
+          </div>
+              <div class="form-row">
+                <div class="form-group col-md-8">
+                  <label>Local</label>
+                  <input type="text" formControlName="Local"  id="Local"
+                  class="form-control" placeholder="Informe o local do evento" required>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Data e Hora</label>
+                  <input type="text" formControlName="DataEvento" id="DataEvento"
+                  class="form-control" placeholder="01/01/2019" required>
+                </div>
+              </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label>Endereço</label>
+                    <input class="form-control" id="address" formControlName="address" required
+                      value="{{dados.address}}"/>
+                    
+                  </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                      <label>Bairro</label>
+                      <input class="form-control" id="district" formControlName="district" required
+                         value="{{dados.district}}"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label>Cep</label>
+                      <input class="form-control" id="cep" formControlName="cep" required
+                        value="{{dados.cep}}"/>
+                     
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                      <div class="form-group col-md-8">
+                        <label>Cidade</label>
+                        <input class="form-control" id="city" formControlName="city" required
+                           value="{{dados.city}}"/>
+                        
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>UF</label>
+                        <input class="form-control" id="state" formControlName="state" required
+                           value="{{dados.state}}"/>
+                      </div>
+                    </div>
+   
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label>Latitude</label>
+                          <input class="form-control" id="lat" formControlName="lat" required
+                             value="{{dados.lat}}"/>
+                          
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label>Longitude</label>
+                          <input class="form-control" id="lng" formControlName="lng" required
+                            value="{{dados.lng}}"/>
+                        </div>
+                      </div>          
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label>Endereço</label>
+                            <input class="form-control" id="address_type" formControlName="address_type" required
+                               value="{{dados.address_type}}"/>
+                            
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>Endereço</label>
+                            <input class="form-control" id="address_name" formControlName="address_name" required
+                                 value="{{dados.address_name}}"/>
+                          </div>
+                        </div>   
+               
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>Qtd Pessoas</label>
+              <input type="text" formControlName="QtdPessoas"  id="QtdPessoas"
+              class="form-control" placeholder="000" required> 
+            </div>
+            <div class="form-group col-md-4 pull-right">
+              <label>Imagem</label>
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success" (click)="file.click()">
+                      Enviar Imagem
+                    </button>
+                    <input type="text" type="file" #file placeholder="" style="display: none" 
+                    formControlName="ImagemURL"  id="ImagemURL" class="form-control is-invalid">
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Telefone</label>
+              <input type="text" formControlName="Telefone"  id="Telefone" 
+              class="form-control" placeholder="7190000-0000" required>
+            </div>
+            <div class="form-group col-md-8">
+              <label>Email</label>
+              <input type="email" formControlName="Email" id="Email"
+              class="form-control" placeholder="email@email.com" required email>
+            </div>
+          </div>
+       
+          <div class="modal-footer d-flex">
+            <button class="btn btn-secondary" data-dismiss="modal">
+              Fechar
+            </button>
+            <button class="btn btn-primary ml-auto" type="submit" [disabled]="formEvento.invalid">
+             <i class="fas fa-database"></i> Salvar
+            </button>
+          </div>
+      </form>
+    </div> 
+  </ng-template>
+

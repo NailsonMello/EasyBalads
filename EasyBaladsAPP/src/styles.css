@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+.green-icon{
+    color: #28a745;
+}
+.red-icon{
+    color: #dc3545;
+}
+#toast-container > div{
+    opacity: 1;
+}
+.div2 {
+    white-space: nowrap; 
+    width: 12em; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.navColor{
+    background-color: #750065;
+}
+agm-map {
+    height: 300px;
+  }

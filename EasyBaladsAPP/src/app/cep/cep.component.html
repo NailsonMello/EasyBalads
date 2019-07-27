@@ -1,0 +1,164 @@
+    <button class="btn btn-outline-primary pull-right" (click)="openModal(template)">
+        <i class="fa fa-plus-circle"></i>&nbsp;
+        Novo Evento
+      </button>
+
+        <ng-template #template>
+          <div class="modal-body text-center">
+          
+          <div class="modal-header">
+              <h5 class="modal-title pull-left">Buscar cep</h5>
+                  
+          </div> 
+          <div class="modal-body">
+              <div class="form-row">
+                  <label for="cepP">Cep: </label>
+                <div class="form-group col-md-4">
+                  
+                    <input type="text" maxlength="8" class="form-control" id="cepP" placeholder="00000-000" [(ngModel)]="cep.cep"/>
+                </div>
+                <div class="form-group col-md-6 pull-right">
+                  <button class="btn btn-primary" type="button" (click)="buscarCep(template1)">Buscar cep</button>
+                </div>
+              </div>
+        
+            </div>
+          </div>  
+        </ng-template>
+        <ng-template #template1> 
+          <!-- Modal -->
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Evento</h5>
+              <button type="button" class="close" (click)="modalRefer.hide()"  aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            <div class="modal-body">
+    <form #formEvento="ngForm">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+                  <label>Nome</label>
+          <input type="text" name="Nome" id="Nome"
+          class="form-control" placeholder="Insira o nome do evento" required [(ngModel)]="cep.Nome"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Descrição</label>
+          <input type="text" name="Descricao" id="Descricao"
+          class="form-control" placeholder="Informe como será o evento" required [(ngModel)]="cep.Descricao"/>
+        </div>
+      </div>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Local</label>
+              <input type="text" name="Local"  id="Local"
+              class="form-control" placeholder="Informe o local do evento" required [(ngModel)]="cep.Local"/>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Data e Hora</label>
+              <input type="text" name="DataEvento" id="DataEvento"
+              class="form-control" placeholder="01/01/2019" required [(ngModel)]="cep.DataEvento"/>
+            </div>
+          </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Endereço</label>
+                <input class="form-control" id="address" name="address" required [(ngModel)]="cep.address"/>
+                
+              </div>
+            </div>
+    
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                  <label>Bairro</label>
+                  <input class="form-control" id="district" name="district" required [(ngModel)]="cep.district"/>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Cep</label>
+                  <input class="form-control" id="cep" name="cep" required [(ngModel)]="cep.cep"/>
+                
+                </div>
+              </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-8">
+                    <label>Cidade</label>
+                    <input class="form-control" id="city" name="city" required [(ngModel)]="cep.city"/>
+                    
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>UF</label>
+                    <input class="form-control" id="state" name="state" required [(ngModel)]="cep.state"/>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label>Latitude</label>
+                      <input class="form-control" id="lat" name="lat" required [(ngModel)]="cep.lat"/>
+                      
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Longitude</label>
+                      <input class="form-control" id="lng" name="lng" required [(ngModel)]="cep.lng"/>
+                    </div>
+                  </div>          
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label>Tipo</label>
+                        <input class="form-control" id="address_type" name="address_type" required [(ngModel)]="cep.address_type"/>
+                        
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>Logradouro</label>
+                        <input class="form-control" id="address_name" name="address_name" required [(ngModel)]="cep.address_name"/>
+                      </div>
+                    </div>   
+          
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label>Qtd Pessoas</label>
+          <input type="text" name="QtdPessoas"  id="QtdPessoas"
+          class="form-control" placeholder="000" required [(ngModel)]="cep.QtdPessoas"/> 
+        </div>
+        <div class="form-group col-md-4 pull-right">
+          <label>Imagem</label>
+          <table>
+            <tr>
+              <td>
+                <button class="btn btn-success" (click)="file.click()">
+                  Enviar Imagem
+                </button>
+                <input type="file" #file placeholder="" style="display: none" (change)="onFileChange($event)"
+                name="ImagemURL"  id="ImagemURL" class="form-control is-invalid" [(ngModel)]="cep.ImagemURL"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Telefone</label>
+          <input type="text" name="Telefone"  id="Telefone" 
+          class="form-control" placeholder="7190000-0000" required [(ngModel)]="cep.Telefone"/>
+        </div>
+        <div class="form-group col-md-8">
+          <label>Email</label>
+          <input type="email" name="Email" id="Email"
+          class="form-control" placeholder="email@email.com" required email [(ngModel)]="cep.Email"/>
+        </div>
+      </div>
+  
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" type="submit" (click)="salvar()">
+        <i class="fas fa-database"></i> Salvar
+        </button>
+      </div>
+    </form>
+  </div> 
+</ng-template>

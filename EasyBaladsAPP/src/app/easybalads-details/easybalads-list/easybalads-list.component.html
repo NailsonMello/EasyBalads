@@ -1,0 +1,164 @@
+<div class="row mb-5">        
+    <div class="col-md-4" *ngFor="let evento of service.list">     
+            <div class="card-deck">
+                    <div class="card mb-3">
+                      <img class="card-img-top" (click)="mostrarDetalhes(dt)" src="http://localhost:5000/resources/imgs/{{evento.ImagemURL}}"/>
+                      <div class="card-body">
+                       <strong class="d-inline-block mb-2 text-success">
+                                <h4 class="mb-0 div2">
+                                          {{evento.Nome}}
+                                </h4>
+                            </strong>
+                        <p class="card-text div2">{{evento.Descricao}}</p>
+                        <div class="text-muted"><small style="font-size: 10px;">{{evento.DataEvento}}</small></div>
+                        <p class="card-text">
+                                <small class="text-muted">Local: {{evento.Local}}</small>
+                                <br>
+                                <small class="text-muted">e-mail: {{evento.Email}}</small>
+                                <br>
+                                <small class="text-muted">Telefone: {{evento.Telefone}}</small>
+                                <br>
+                                <small class="text-muted">Qtd pessoas: {{evento.QtdPessoas}}</small>
+                        </p>
+                      </div>
+                      <div class="card-body" style="margin: auto;">
+                                <button class="btn btn-sm btn-primary" style="width: 80px;" (click)="openModal(evento.Id, tem, evento.lat, evento.lng)">
+                                                <i class="fas fa-eye"></i> Ver
+                                        </button>
+                                        &nbsp;&nbsp;
+                            <button class="btn btn-sm btn-success" style="width: 80px;" (click)="editarEvento(evento, template)">
+                                    <i class="fa fa-edit"></i> Editar
+                            </button>
+                            &nbsp;&nbsp;    
+                            <button class="btn btn-sm btn-danger" style="width: 80px;" tooltip="Excluir" (click)="deleteEvento(evento.Id)">
+                                    <i class="fa fa-eraser"></i> Excluir
+                            </button>
+                      </div>
+            </div>
+    </div>
+</div>     
+
+              <!-- Modal DETALHES -->
+               <ng-template #tem>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Detalhes do evento</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" >
+                  <div >
+                    <div class="card mb-3">
+                      <img class="card-img-top" (click)="mostrarDetalhes(dt)" src="https://pl.scdn.co/images/pl/default/4b3b7f3a6738482c015ca6841f87a066cb4027c5" 
+                            data-holder-rendered="true" style="width: 100%;" alt="Card image cap">
+                      <div class="card-body">
+                        <strong class="d-inline-block mb-2 text-success">
+                          <h4 class="mb-0 div2">
+                            {{dados.Nome}}
+                          </h4>
+                        </strong>
+                        <p class="card-text">{{dados.Descricao}}</p>                                                                                           
+                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> Local: {{dados.Local}}</p>
+                        <p class="card-text"><i class="fas fa-at"></i> e-mail: {{dados.Email}}</p>
+                        <p class="card-text"><i class="fas fa-mobile-alt"></i> Telefone: {{dados.Telefone}}</p>
+                        <p class="card-text"><i class="fas fa-users"></i> Qtd pessoas: {{dados.QtdPessoas}}</p>
+                        <p class="card-text"><i class="far fa-calendar-alt"></i> {{dados.DataEvento}}</p>
+                      </div>
+                    </div>                       
+                  </div>
+                  <h6>{{ dados.address}} </h6>
+
+                  <!-- this creates a google map on the page with the given lat/lng from -->
+                  <!-- the component as the initial center of the map: -->
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                  </agm-map>
+                </div>
+
+              </ng-template>
+
+
+                <ng-template #template> 
+                <!-- Modal EDITAR -->
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Evento</h5>
+                        <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+                             
+                          <div class="form-row">
+                              <div class="form-group col-md-12">
+                                      <input type="hidden" name="Id" [(ngModel)]="service.formData.Id">
+                                <label [class.green-icon]="Nome.valid" [class.red-icon]="Nome.invalid && Telefone.touched">Nome</label>
+                                <input name="Nome" #Nome="ngModel" [(ngModel)]="service.formData.Nome"
+                                class="form-control" placeholder="Insira o nome do evento" required>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-8">
+                                <label [class.green-icon]="Descricao.valid" [class.red-icon]="Descricao.invalid && Telefone.touched">Descrição</label>
+                                <input name="Descricao" #Descricao="ngModel" [(ngModel)]="service.formData.Descricao" 
+                                class="form-control" placeholder="Informe como será o evento" required>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                                  <div class="form-group col-md-8">
+                                    <label [class.green-icon]="Local.valid" [class.red-icon]="Local.invalid && Local.touched">Local</label>
+                                    <input name="Local" #Local="ngModel" [(ngModel)]="service.formData.Local" 
+                                    class="form-control" placeholder="Informe o local do evento" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label [class.green-icon]="DataEvento.valid" [class.red-icon]="DataEvento.invalid && Telefone.touched">Data e Hora</label>
+                                    <input name="DataEvento" #DataEvento="ngModel" [(ngModel)]="service.formData.DataEvento" 
+                                    class="form-control" placeholder="01/01/2019" required>
+                                  </div>
+                                </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-3">
+                                <label [class.green-icon]="QtdPessoas.valid" [class.red-icon]="QtdPessoas.invalid && Telefone.touched">Qtd Pessoas</label>
+                                <input name="QtdPessoas" #QtdPessoas="ngModel" [(ngModel)]="service.formData.QtdPessoas" 
+                                class="form-control" placeholder="000" required> 
+                              </div>
+                              <div class="form-group col-md-4 pull-right">
+                                <label>Imagem</label>
+                                <table>
+                                  <tr>
+                                    <td>
+                                      <button class="btn btn-success" (click)="file.click()">
+                                        Enviar Imagem
+                                      </button>
+                                      <input type="file" #file placeholder="" style="display: none" 
+                                      name="ImagemURL" #ImagemURL="ngModel" [(ngModel)]="service.formData.ImagemURL" class="form-control is-invalid">
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-4">
+                                <label [class.green-icon]="Telefone.valid" [class.red-icon]="Telefone.invalid && Telefone.touched">Telefone</label>
+                                <input name="Telefone" #Telefone="ngModel" [(ngModel)]="service.formData.Telefone"  
+                                class="form-control" placeholder="7190000-0000" required>
+                              </div>
+                              <div class="form-group col-md-8">
+                                <label [class.green-icon]="Email.valid" [class.red-icon]="Email.invalid && Telefone.touched">Email</label>
+                                <input type="email" name="Email" #Email="ngModel" [(ngModel)]="service.formData.Email"
+                                class="form-control" placeholder="email@email.com" required>
+                              </div>
+                            </div>
+                            <div class="modal-footer d-flex">
+                              <button class="btn btn-secondary" data-dismiss="modal">
+                                Fechar
+                              </button>
+                              <button class="btn btn-primary ml-auto" type="submit" [disabled]="form.invalid">
+                               <i class="fas fa-database"></i> Salvar
+                              </button>
+                            </div>
+                        </form>
+                      </div> 
+                  
+              </ng-template>
+              
